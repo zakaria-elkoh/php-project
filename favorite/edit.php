@@ -1,34 +1,39 @@
 
+
 <?php
 
-  include 'connection.php';
+  include '../connection.php';
 
-   if(isset($_POST['submit'])) {
-    //   $title = $_POST['title'];
-    //   $duration = $_POST['duration'];
-    //   $description = $_POST['description'];
-    //   $user_id = $_POST['user_id'];
+  if(isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM `fave_movie` WHERE id = $id";
+    $query = mysqli_query($conn, $sql);
+    $rows = mysqli_fetch_assoc($query);
 
-      $sql = "INSERT INTO `fave_movie`(`title`, `duration`, `description`, `user_id`)
-      VALUES ('$title','$duration','$description', '$user_id')";
-    //   UPDATE `fave_movie` 
-    //   SET `id`='[value-1]',`title`='[value-2]',`duration`='[value-3]',`description`='[value-4]',`user_id`='[value-5]'
-            
-      $query = mysqli_query($conn, $sql);
+    $title = $rows['title'];
+    $duration = $rows['duration'];
+    $user_id = $rows['user_id'];
+    $description = $rows['description'];
+  }
 
-      if(isset($query)) {
-          echo "<h1>Added </h1>";
-          header("location: favorite.php");
-      } else {
-          echo "<h1>an error</h1>"; 
-      }
-   }
+//    if(isset($_POST['submit'])) {
+//       $title = $_POST['title'];
+//       $duration = $_POST['duration'];
+//       $description = $_POST['description'];
+//       $user_id = $_POST['user_id'];
 
-   $sql = "SELECT * FROM fave_movie";
-   $query = mysqli_query($conn, $sql);
+//       $sql = "UPDATE `fave_movie` SET `title`='$title',`duration`='$duration',`description`='$description',`user_id`='$user_id' where id = $tareget_id";
+      
+//       $query = mysqli_query($conn, $sql);
+
+//       if(isset($query)) {
+//           header('location: favorite.php');
+//       } else {
+//           echo '<h1>an error</h1>'; 
+//       }
+//    }
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -56,27 +61,27 @@
     <div class="container py-5">
         <div class="modal-body text-white w-50 mx-auto">
             <!-- the form -->
-            <form method="POST" action="">
+            <form method="POST" action="../favorite.php?id=<?php echo $id; ?>">
                 <div class="mb-3">
                     <label for="recipient-name" class="col-form-label">Title:</label>
-                    <input type="text" name="title" class="form-control bg-black text-white" id="recipient-name">
+                    <input type="text" name="title" value='<?php if(isset($_GET['id'])) { echo $title; } ?>' class="form-control bg-black text-white" id="recipient-name">
                 </div>
                 <div class="mb-3">
                     <label for="message-text" class="col-form-label">Duration:</label>
-                    <input type="text" name="duration" class="form-control bg-black text-white" id="recipient-name">
+                    <input type="text" name="duration" value='<?php if(isset($_GET['id'])) { echo $duration; } ?>'  class="form-control bg-black text-white" id="recipient-name">
                 </div>
                 <div class="mb-3">
                     <label for="message-text" class="col-form-label">urser id:</label>
-                    <input type="text" name="user_id" class="form-control bg-black text-white" id="recipient-name">
+                    <input type="text" name="user_id" value='<?php if(isset($_GET['id'])) { echo $user_id; } ?>'  class="form-control bg-black text-white" id="recipient-name">
                 </div>
                 <div class="mb-3">
                     <label for="message-text" class="col-form-label">Description:</label>
-                    <textarea name="description" class="form-control bg-black text-white" id="message-text"></textarea>
+                    <textarea name="description"  class="form-control bg-black text-white" id="message-text"><?php if(isset($_GET['id'])) { echo $description; } ?></textarea>
                 </div>
                 <div class="modal-footer bg-black ">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <!-- <button type="button" class="btn btn-primary">Send message</button> -->
-                    <button type="submit" name="submit" class="btn btn-primary ms-3 px-4">Edit</button>
+                    <button type="submit" name="edit" class="btn btn-primary ms-3 px-4">Edit</button>
                 </div>
             </form>
         </div>

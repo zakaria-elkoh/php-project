@@ -2,6 +2,26 @@
 <?php
   include 'connection.php';
 
+  if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $username = $_POST['user_name'];
+    $password = $_POST['password'];
+
+    echo $username;
+    echo $password;
+
+    $sql = "SELECT `user_name`, `password` FROM `user` WHERE user_name = '$username' AND password = '$password'";
+    $result = mysqli_query($conn,$sql);
+   if (mysqli_num_rows($result)>0) {
+    echo 'yes';
+   }else{
+    echo 'no';
+
+   }
+
+  }
+
+
 ?>
 
 
@@ -15,7 +35,7 @@
 </head>
 <body class="bg-black text-white">
 
-    <form class="container w-50 py-5" method="POST" action="favorite.php">
+    <form class="container w-25 py-5 mt-5" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
         <div class="mb-3">
           <label for="exampleInputUser" class="form-label">User name:</label>
           <input name="user_name" type="text" class="form-control" id="exampleInputUser" aria-describedby="emailHelp">

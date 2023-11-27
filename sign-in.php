@@ -3,6 +3,8 @@
 
   include 'connection.php';
 
+  session_start();
+
    if(isset($_POST['submit'])) {
       $name = $_POST['name'];
       $user_name = $_POST['user_name'];
@@ -16,6 +18,13 @@
 
       if(isset($query)) {
           echo "<h1>Added </h1>";
+
+          $newsSql = "SELECT * FROM user WHERE user_name = '$user_name'";
+          $newqQuery = mysqli_query($conn, $newsSql);
+          $rows = mysqli_fetch_assoc($newqQuery);
+
+          $_SESSION['user_name'] = $user_name;
+          $_SESSION['user_id'] = $rows['id'];
           header('Location: http://localhost/movie_mingle_dashboard/dashboard.php');
       } else {
           echo "<h1>an error</h1>";
@@ -44,7 +53,7 @@
 </head>
 <body class="bg-black text-white">
    
-    <form class="container w-25 py-5 mt-5" action="$_SERVER['PHP_SELF']" method="post" >
+    <form class="container w-25 py-5 mt-5" action="" method="post" >
         <div class="mb-3">
           <label for="exampleInputName" class="form-label">Full name:</label>
           <input name="name" type="text" class="form-control" id="exampleInputName" aria-describedby="emailHelp">

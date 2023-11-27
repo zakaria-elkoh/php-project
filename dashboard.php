@@ -1,6 +1,8 @@
 <?php 
 
     include 'connection.php';
+    session_start();
+
     $sql = "SELECT * FROM user";
     $query = mysqli_query($conn, $sql);
 
@@ -34,62 +36,9 @@
 
     <section class="container">
 
-    <table class="table table-striped table-hover">
-        
-        <tr>
-            <td>id</td>
-            <td>name</td>
-            <td>username</td>
-            <td>email</td>
-        </tr>
-
-        <?php 
-        
-            while($rows = mysqli_fetch_assoc($query)) {
-                    echo "<tr>";
-                        echo "<td>" . $rows['id'] . "</td>";
-                        echo "<td>" . $rows['name'] . "</td>";
-                        echo "<td contenteditable='true'>" . $rows['user_name'] . "</td>";
-                        echo "<td>" . $rows['email'] . "</td>";
-                    echo "</tr>";
-                }
-            
-        ?>
-
-    </table>
-
         <div class="row flex-nowrap">
             <!-- side nav -->
-            <div class="sidebar col-auto col-md-3 min-vh-100 ">
-                <div class="side-content d-flex flex-column align-items-center">
-                    <div class="profil d-flex flex-column align-items-center gap-3">
-                        <img src="img-dash/user.png" alt="">
-                        <span class="d-none d-md-inline">user name</span>
-                    </div>
-                    <ul class="nav d-flex flex-column">
-                        <li><a href="dashboard.php" class="text-decoration-none text-white px-4 py-2"><i
-                                    class=" fa-solid fa-border-all"></i>
-                                <span class="d-none d-md-inline active">Dashboard</span></a></li>
-                        <li><a href="favorite.php" class="text-decoration-none text-white px-4 py-2"><i
-                                    class=" fa-regular fa-heart"></i> <span
-                                    class="d-none d-md-inline">Favorite</span></a>
-                        </li>
-                        <li><a href="to-watch.php" class="text-decoration-none text-white px-4 py-2"><i
-                                    class=" fa-regular fa-bookmark"></i>
-                                <span class="d-none d-md-inline ">To-watch</span></a></li>
-                        <li><a href="watch-history.php" class="text-decoration-none text-white px-4 py-2"><i
-                                    class=" fa-regular fa-compass"></i> <span
-                                    class="d-none d-md-inline">Watch-history</span></a></li>
-                        <li><a href="#" class="text-decoration-none text-white px-4 py-2"><i
-                                    class=" fa-regular fa-user"></i> <span class="d-none d-md-inline">Account</span></a>
-                        </li>
-                        <li><a href="#" class="text-decoration-none text-white px-4 py-2"><i
-                                    class=" fa-solid fa-arrow-right-from-bracket"></i> <span
-                                    class="d-none d-md-inline">Log
-                                    out</span></a></li>
-                    </ul>
-                </div>
-            </div>
+            <?php include './aside.php'; ?>
 
             <!-- content -->
             <div class="content m-1 p-md-4 col-md-9 col-9 min-vh-100">
