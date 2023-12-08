@@ -1,0 +1,22 @@
+
+.movies .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.favorite-input,
+.to-watch-input {
+    appearance: none;
+}
+.favorite-input + label .favorite-icon,
+.to-watch-input + label .to-watch-icon {
+    cursor: pointer;
+    transition: .3s;
+}
+.favorite-input:checked + label .favorite-icon {
+    color: red;
+}
+.to-watch-input:checked + label .to-watch-icon {
+    color: rgb(30, 30, 30);
+}

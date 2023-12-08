@@ -23,7 +23,7 @@
             <li><a href="#" class="text-decoration-none text-white px-4 py-2"><i
                         class=" fa-regular fa-user"></i> <span class="d-none d-md-inline">Account</span></a>
             </li>
-            <li><a href="log-out.php" class="text-decoration-none text-white px-4 py-2"><i
+            <li><a href="../../controller/auth/log-out.php" class="text-decoration-none text-white px-4 py-2"><i
                         class=" fa-solid fa-arrow-right-from-bracket"></i> <span
                         class="d-none d-md-inline">Log
                         out</span></a></li>

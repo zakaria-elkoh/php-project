@@ -1,45 +1,6 @@
 
 <?php
-
-  include 'connection.php';
-
-  session_start();
-
-   if(isset($_POST['submit'])) {
-      $name = $_POST['name'];
-      $user_name = $_POST['user_name'];
-      $email = $_POST['email'];
-      $password = $_POST['password'];
-
-      $sql = "INSERT INTO `user`(`name`, `user_name`, `email`, `password`) 
-      VALUES ('$name','$user_name','$email','$password')";
-            
-      $query = mysqli_query($conn, $sql);
-
-      if(isset($query)) {
-          echo "<h1>Added </h1>";
-
-          $newsSql = "SELECT * FROM user WHERE user_name = '$user_name'";
-          $newqQuery = mysqli_query($conn, $newsSql);
-          $rows = mysqli_fetch_assoc($newqQuery);
-
-          $_SESSION['user_name'] = $user_name;
-          $_SESSION['user_id'] = $rows['id'];
-          header('Location: http://localhost/movie_mingle_dashboard/dashboard.php');
-      } else {
-          echo "<h1>an error</h1>";
-      }
-   }
-
-  //  if(isset($_POST['submit'])){
-
-  //      $name = $_POST['name'];
-     
-  //     $query = "INSERT INTO `user`(`name`) VALUES ('$name')";
-
-  //     $result = mysqli_query($conn , $query); 
-
-  //  }
+  include '../../controller/auth/sign-up.php';
 ?>
 
 
@@ -70,14 +31,14 @@
           <label for="exampleInputPassword1" class="form-label">Password:</label>
           <input name="password" type="password" class="form-control" id="exampleInputPassword1">
         </div>
-        <button type="submit" name="submit" class="btn btn-primary mt-3">Submit</button>
+        <button type="submit" name="submit" class="btn btn-primary mt-3">Sign In</button>
     </form>
-    
 
-
-
+    <div class='text-center'>
+      <a href="./log-in.php" >already have an account?</a>
+    </div>
+  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
 
   </body>
 </html>
